@@ -1,0 +1,41 @@
+# This is a sample workflow to test or replace with your source code.
+#
+# This workflow returns a list of Wikipedia articles related to a search term.
+# The search term is retrieved from a Cloud Function that returns the current day of the week
+# (in GMT), unless a search term is given as input (e.g. {"searchTerm": "Monday"}).
+main:
+    params: [input]
+    steps:
+    - define:
+        assign:
+            - i: 0
+    - check_condition:
+        switch:
+            - condition: ${ i <= len(input.data)}
+              next: exit_loop
+        next: iterate
+    - iterate:
+        assign:
+        - i: ${i+1}
+        next: create_meeting    
+    - create_meeting:
+        call: http.post
+        args:
+         url: ${input.api.url}
+         headers:
+            Content-Type: 'application/json'
+            x-api-key: ${input.api.key}
+         body: 
+            - key: ${input.key}
+            - data: ${input.data[i]}
+            - index: i
+        result: response
+        next: prepare_result    
+    - prepare_result:
+        assign:
+        - ret_val: 
+            - Row${i}: ${response} 
+        next: check_condition    
+    - exit_loop:
+        return:
+            ret_val: ${ret_val}

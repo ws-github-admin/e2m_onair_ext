@@ -1,0 +1,144 @@
+service: e2mext
+configValidationMode: off
+# disabledDeprecations:
+#   - "*"
+provider:
+  name: google
+  stage: prd
+  runtime: nodejs22
+  region: us-central1
+  project: e2monair
+  credentials: ./deploy/keys/prd_key.json
+  memorySize: 512
+  timeout: 60s
+
+plugins:
+  - serverless-google-cloudfunctions
+
+package:
+  exclude:
+    - deploy/**
+    - config/**
+    - node_modules/**
+    - .gitignore
+    - .git/**
+    - .serverless/**
+    - .history/**
+    - .vscode/**
+    - e2m-onair-google.code-workspace
+
+functions:
+  meeting-qna:
+    handler: meetingQnA
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+  mysql-connection:
+    handler: mysqlConnection
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 60s
+  available-attendees:
+    handler: availableAttendees
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+    vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
+  available-speakers:
+    handler: availableSpeakers
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+    vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
+  available-sponsors:
+    handler: availableSponsors
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+    vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
+  user-info:
+    handler: userInfo
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+    vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
+  meeting-attendees:
+    handler: meetingAttendees
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+  attendee-meetings:
+    handler: attendeeMeetings
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+  draft-attendees:
+    handler: draftAttendees
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+  request-meetings:
+    handler: requestMeetings
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+  confirm-meeting:
+    handler: confirmMeeting
+    events:
+      - http: path
+    memorySize: 512
+  pubsub-confirm-meeting:
+    handler: pubsubConfirmMeeting
+    events:
+      - event:
+          eventType: providers/cloud.pubsub/eventTypes/topic.publish
+          resource: 'projects/${self:provider.project, ""}/topics/confirm-meeting'
+    memorySize: 512
+    timeout: 120s
+  meeting-reminder:
+    handler: meetingReminder
+    events:
+      - http: path
+    memorySize: 512
+  scan-vcard:
+    handler: scanVCard
+    events:
+      - http: path
+    memorySize: 512
+  scan-rating:
+    handler: scanRating
+    events:
+      - http: path
+    memorySize: 512
+  pubsub-scan-vcard:
+    handler: pubsubScanVCard
+    events:
+      - event:
+          eventType: providers/cloud.pubsub/eventTypes/topic.publish
+          resource: 'projects/${self:provider.project, ""}/topics/ext-scan-vcard'
+    memorySize: 512
+    timeout: 120s
+  share-vcard:
+    handler: shareVCard
+    events:
+      - http: path
+    memorySize: 512
+  pubsub-share-vcard:
+    handler: pubsubShareVCard
+    events:
+      - event:
+          eventType: providers/cloud.pubsub/eventTypes/topic.publish
+          resource: 'projects/${self:provider.project, ""}/topics/ext-share-vcard'
+    memorySize: 512
+    timeout: 120s
+
