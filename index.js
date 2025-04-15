@@ -5,7 +5,7 @@ const vcard = require("./lib/vcard");
 const user = require("./lib/user");
 const logger = require("./lib/logger");
 const mysql = require("./lib/mysql");
-const validator = require("./lib/validator");
+const validate = require("./lib/validator");
 const { ERRCODE } = require('./lib/errcode');
 
 /* M E E T I N G  H A N D L E R S */
@@ -153,6 +153,12 @@ function user_info(req, res) {
             methodNameText: "user.userInfo",
             allowedRoles: [],
             isPrivate: true,
+        },
+        PUT: {
+            isPrivate: true,
+            methodToCall: user.userUpdate,
+            methodNameText: "user.userUpdate",
+            allowedRoles: [],
         }
     };
     let allowed_methods = Object.keys(params);
@@ -833,7 +839,7 @@ function _handle_request(req, params) {
             return;
         }
 
-        validator
+        validate
             .__call(req, params)
             .then((res) => {
                 //console.log(res)
