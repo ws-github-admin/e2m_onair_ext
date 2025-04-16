@@ -68,6 +68,12 @@ functions:
     memorySize: 512
     timeout: 120s
     vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
+  upload-files:
+    handler: uploadFiles
+    events:
+      - http: path
+    memorySize: 1024
+    timeout: 120s
   meeting-attendees:
     handler: meetingAttendees
     events:

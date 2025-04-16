@@ -175,6 +175,29 @@ function user_info(req, res) {
         });
 }
 
+function upload_files(req, res) {
+    let params = {
+        POST: {
+            methodToCall: user.uploadFiles,
+            methodNameText: "user.uploadFiles",
+            allowedRoles: [],
+            isPrivate: true,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
+
 
 
 function draft_attendees(req, res) {
@@ -912,6 +935,7 @@ module.exports = {
     availableSpeakers: available_speakers,
     availableSponsors: available_sponsors,
     userInfo: user_info,
+    uploadFiles: upload_files,
     draftAttendees: draft_attendees,
     requestMeetings: request_meetings,
     meetingAttendees: meeting_attendees,
