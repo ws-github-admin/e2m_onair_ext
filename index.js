@@ -202,6 +202,7 @@ function upload_files(req, res) {
 
 function draft_attendees(req, res) {
     let payload = {}
+    console.log("req.method====", req.method);
     if (req.method == 'GET') {
         payload = {
             key: {
@@ -292,6 +293,72 @@ function attendee_meetings(req, res) {
             return res.status(200).send(err);
         });
 }
+function available_slots(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.availableSlots,
+            methodNameText: "meeting.availableSlots",
+            allowedRoles: [],
+            isPrivate: false,
+        }
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
+function get_meetings(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.getMeetings,
+            methodNameText: "meeting.getMeetings",
+            allowedRoles: [],
+            isPrivate: true,
+        }
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
+function get_meeting_detail(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.getMeetingDetail,
+            methodNameText: "meeting.getMeetingDetail",
+            allowedRoles: [],
+            isPrivate: false,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
 function request_meetings(req, res) {
     let params = {
         POST: {
@@ -314,174 +381,6 @@ function request_meetings(req, res) {
             return res.status(200).send(err);
         });
 }
-
-function get_meetings(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.getMeetings,
-            methodNameText: "meeting.getMeetings",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-        PUT: {
-            methodToCall: meeting.getAllMeetings,
-            methodNameText: "meeting.getAllMeetings",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function get_meeting_detail(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.getMeetingDetail,
-            methodNameText: "meeting.getMeetingDetail",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function get_meeting_slots(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.getMeetingSlots,
-            methodNameText: "meeting.getMeetingSlots",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function create_meetings(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.createMeetings,
-            methodNameText: "meeting.createMeetings",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function create_meeting(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.createMeeting,
-            methodNameText: "meeting.createMeeting",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function store_meetings(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.storeMeetings,
-            methodNameText: "meeting.storeMeetings",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function request_meeting(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.requestMeeting,
-            methodNameText: "meeting.requestMeeting",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
 function confirm_meeting(req, res) {
     let params = {
         POST: {
@@ -504,19 +403,50 @@ function confirm_meeting(req, res) {
             return res.status(200).send(err);
         });
 }
-
-async function pubsub_confirm_meeting(message, context) {
-    try {
-        if (message.data) {
-            let payload = JSON.parse(Buffer.from(message.data, "base64").toString());
-            await meeting.pubsubConfirmMeeting(payload)
-        }
-    } catch (err) {
-        logger.log(err);
-    }
-    return;
+function cancel_meeting(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.cancelMeeting,
+            methodNameText: "meeting.cancelMeeting",
+            allowedRoles: [],
+            isPrivate: true,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
 }
-
+function ai_confirm_meeting(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.aiConfirmMeeting,
+            methodNameText: "meeting.aiConfirmMeeting",
+            allowedRoles: [],
+            isPrivate: true,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
 function meeting_reminder(req, res) {
     let params = {
         POST: {
@@ -561,18 +491,6 @@ function scan_vcard(req, res) {
             return res.status(200).send(err);
         });
 }
-async function pubsub_scan_vcard(message, context) {
-    try {
-        if (message.data) {
-            let payload = JSON.parse(Buffer.from(message.data, "base64").toString());
-            await vcard.pubsubScanVCard(payload)
-        }
-    } catch (err) {
-        logger.log(err);
-    }
-    return;
-}
-
 function scan_rating(req, res) {
     let params = {
         POST: {
@@ -617,187 +535,7 @@ function share_vcard(req, res) {
             return res.status(200).send(err);
         });
 }
-async function pubsub_share_vcard(message, context) {
-    try {
-        if (message.data) {
-            let payload = JSON.parse(Buffer.from(message.data, "base64").toString());
-            await vcard.pubsubShareVCard(payload)
-        }
-    } catch (err) {
-        logger.log(err);
-    }
-    return;
-}
 
-
-
-
-
-
-function cancel_meeting(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.cancelMeeting,
-            methodNameText: "meeting.cancelMeeting",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function reject_meeting(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.rejectMeeting,
-            methodNameText: "meeting.rejectMeeting",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function delete_meeting(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.deleteMeetings,
-            methodNameText: "meeting.deleteMeetings",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function meeting_config(req, res) {
-    let params = {
-        POST: {
-            methodToCall: meeting.getMeetingConfig,
-            methodNameText: "meeting.getMeetingConfig",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-        PUT: {
-            methodToCall: meeting.setMeetingConfig,
-            methodNameText: "meeting.setMeetingConfig",
-            allowedRoles: [],
-            isPrivate: true,
-        },
-    };
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-            return res.status(200).send(result);
-        })
-        .catch((err) => {
-            return res.status(200).send(err);
-        });
-}
-
-function download_meetings(req, res) {
-    let payload = { key: {} };
-
-    // Handle GET request and URL decode the email
-    if (req.method == 'GET' && req.query) {
-        payload.key.instanceId = (req.query.iid || 'OA_UAT');
-        payload.key.clientId = (req.query.cid || '');
-        payload.key.eventId = (req.query.eid || '');
-
-        // Decode the email if present
-        payload.data = {
-            AttendeeId: req.query.uid || '',
-            Email: req.query.email ? decodeURIComponent(req.query.email) : '',
-        };
-    }
-
-    // Parameters for handling GET and POST requests
-    let params = {
-        GET: {
-            methodToCall: meeting.downloadMeetings,
-            methodPayload: payload,
-            methodNameText: "meeting.downloadMeetings",
-            allowedRoles: [],
-            isPrivate: false
-        },
-        POST: {
-            methodToCall: meeting.downloadMeetings,
-            methodNameText: "meeting.downloadMeetings",
-            allowedRoles: [],
-            isPrivate: false,
-        }
-    };
-
-    let allowed_methods = Object.keys(params);
-    res = _set_cors(req, res, allowed_methods);
-
-    // Handle request
-    _handle_request(req, params)
-        .then((result) => {
-            if (result.status == 204) {
-                return res.status(204).send("");
-            }
-
-            // Convert base64 to Buffer
-            const buffer = Buffer.from(result.file_data, 'base64');
-
-            // If it's a GET request, return the file for download
-            if (req.method === 'GET') {
-                // Set response headers for file download
-                res.setHeader('Content-Disposition', `attachment; filename="${result.file_name}.xlsx"`);
-                res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-
-                // Send the file buffer for download
-                return res.status(200).send(buffer);
-            }
-
-            // If it's a POST request, return the base64 data
-            if (req.method === 'POST') {
-                // Return base64 data directly in response
-                return res.status(200).json({ file_data: result.file_data });
-            }
-        })
-        .catch((err) => {
-            return res.status(500).send(err);
-        });
-}
 
 async function pubsub_request_meeting(message, context) {
     try {
@@ -810,12 +548,33 @@ async function pubsub_request_meeting(message, context) {
     }
     return;
 }
-
-async function pubsub_cancel_meeting(message, context) {
+async function pubsub_confirm_meeting(message, context) {
     try {
         if (message.data) {
             let payload = JSON.parse(Buffer.from(message.data, "base64").toString());
-            await meeting.pubsubCancelMeeting(payload)
+            await meeting.pubsubConfirmMeeting(payload)
+        }
+    } catch (err) {
+        logger.log(err);
+    }
+    return;
+}
+async function pubsub_share_vcard(message, context) {
+    try {
+        if (message.data) {
+            let payload = JSON.parse(Buffer.from(message.data, "base64").toString());
+            await vcard.pubsubShareVCard(payload)
+        }
+    } catch (err) {
+        logger.log(err);
+    }
+    return;
+}
+async function pubsub_scan_vcard(message, context) {
+    try {
+        if (message.data) {
+            let payload = JSON.parse(Buffer.from(message.data, "base64").toString());
+            await vcard.pubsubScanVCard(payload)
         }
     } catch (err) {
         logger.log(err);
@@ -823,17 +582,7 @@ async function pubsub_cancel_meeting(message, context) {
     return;
 }
 
-async function pubsub_reject_meeting(message, context) {
-    try {
-        if (message.data) {
-            let payload = JSON.parse(Buffer.from(message.data, "base64").toString());
-            await meeting.pubsubRejectMeeting(payload)
-        }
-    } catch (err) {
-        logger.log(err);
-    }
-    return;
-}
+
 
 /* S U P P O R T I N G  M E T H O D S */
 function _set_cors(req, res, allowed_methods) {
@@ -854,7 +603,7 @@ function _handle_request(req, params) {
         let payload = { data: {} };
         console.log("_handle_request");
         //logger.log(params);
-        //logger.log(params[req.method]);
+        logger.log(params[req.method]);
         //logger.log(req.headers);
         if (req.method == "OPTIONS") {
             ret_val = ERRCODE.PREFLIGHT;
@@ -914,21 +663,9 @@ function _handle_request(req, params) {
 }
 
 module.exports = {
-    createMeetings: create_meetings,
-    createMeeting: create_meeting,
-    storeMeetings: store_meetings,
     getMeetings: get_meetings,
-    getMeetingSlots: get_meeting_slots,
-    getMeetingDetail: get_meeting_detail,
-    requestMeeting: request_meeting,
-    pubsubRequestMeeting: pubsub_request_meeting,
+    getMeetingDetail: get_meeting_detail,   
     cancelMeeting: cancel_meeting,
-    pubsubCancelMeeting: pubsub_cancel_meeting,
-    rejectMeeting: reject_meeting,
-    pubsubRejectMeeting: pubsub_reject_meeting,
-    deleteMeeting: delete_meeting,
-    meetingConfig: meeting_config,
-    downloadMeetings: download_meetings,
     meetingQnA: meeting_qna,
     mysqlConnection: mysql_connection,
     availableAttendees: available_attendees,
@@ -940,12 +677,15 @@ module.exports = {
     requestMeetings: request_meetings,
     meetingAttendees: meeting_attendees,
     attendeeMeetings: attendee_meetings,
+    availableSlots:available_slots,
     confirmMeeting: confirm_meeting,
-    pubsubConfirmMeeting: pubsub_confirm_meeting,
+    aiConfirmMeeting:ai_confirm_meeting,    
     meetingReminder: meeting_reminder,
-    scanVCard: scan_vcard,
-    pubsubScanVCard: pubsub_scan_vcard,
+    scanVCard: scan_vcard,   
     scanRating: scan_rating,
     shareVCard: share_vcard,
+    pubsubRequestMeeting: pubsub_request_meeting,
+    pubsubConfirmMeeting: pubsub_confirm_meeting,
+    pubsubScanVCard: pubsub_scan_vcard,
     pubsubShareVCard: pubsub_share_vcard
 };

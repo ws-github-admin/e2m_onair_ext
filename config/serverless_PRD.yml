@@ -61,6 +61,12 @@ functions:
     memorySize: 512
     timeout: 120s
     vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
+  available-slots:
+    handler: availableSlots
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
   user-info:
     handler: userInfo
     events:
@@ -68,6 +74,18 @@ functions:
     memorySize: 512
     timeout: 120s
     vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
+  get-meetings:
+    handler: getMeetings
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
+  meeting-info:
+    handler: getMeetingDetail
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 120s
   upload-files:
     handler: uploadFiles
     events:
@@ -103,12 +121,25 @@ functions:
     events:
       - http: path
     memorySize: 512
+  ai-confirm-meeting:
+    handler: aiConfirmMeeting
+    events:
+      - http: path
+    memorySize: 1024
   pubsub-confirm-meeting:
     handler: pubsubConfirmMeeting
     events:
       - event:
           eventType: providers/cloud.pubsub/eventTypes/topic.publish
           resource: 'projects/${self:provider.project, ""}/topics/confirm-meeting'
+    memorySize: 512
+    timeout: 120s
+  pubsub-request-meeting:
+    handler: pubsubRequestMeeting
+    events:
+      - event:
+          eventType: providers/cloud.pubsub/eventTypes/topic.publish
+          resource: 'projects/${self:provider.project, ""}/topics/rm-request-meeting'
     memorySize: 512
     timeout: 120s
   meeting-reminder:

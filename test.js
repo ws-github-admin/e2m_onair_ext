@@ -1,6 +1,8 @@
 // async function _handle_request() {
 //     const meeting = require("./lib/meeting");
 
+const user = require("./lib/user");
+
 //     let payload = {
 //         "Invitee": {
 //           "Address": "kolkata",
@@ -115,24 +117,52 @@
 // }
 
 
+// async function _handle_request() {
+//   const meeting = require("./lib/meeting");
+
+//   let payload = {
+//     "key": {
+//           "instanceId": "OA_UAT",
+//           "clientId": "C1742212403583",
+//           "eventId": "E1742214690559"
+//       },
+//     "data": {
+//       "RequestorId": "99915239",
+//       "InviteeIds": [ "34053000", "34057000"
+//          ]
+//   ,
+//       "Slots": [],
+//       "Message": "Let'\''s connect and discuss potential collaboration opportunities.",
+//       "Timezone": "Asia/Kolkata"
+//     }
+//   };
+
+//   try {
+//     let res = await meeting.requestMeetings(payload);
+//     console.log("Success:", res);
+//     //process.exit(0);
+//   } catch (err) {
+//     console.log("Error:", err);
+//     process.exit(0);
+//   }
+// }
+
 async function _handle_request() {
   const meeting = require("./lib/meeting");
 
-  let payload = {
-    "data": {
-      "clearCache": true,
-      "showAll": true
-    },
+  let payload ={
     "key": {
-      "clientId": "C1742212403583",
-      "eventId": "E1742214690559",
-      "instanceId": "OA_UAT"
+        "instanceId": "OA_UAT",
+        "clientId": "C1742212403583",
+        "eventId": "E1742214690559"
+    },
+    "data": {
+      "UserId":"99934194"
     }
-  }
-    ;
+};
 
   try {
-    let res = await meeting.availableSponsors(payload);
+    let res = await meeting.getMeetings(payload);
     console.log("Success:", res);
     //process.exit(0);
   } catch (err) {
