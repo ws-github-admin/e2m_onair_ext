@@ -373,6 +373,29 @@ function get_meeting_detail(req, res) {
             return res.status(200).send(err);
         });
 }
+
+function consolidated_send_email(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.consolidatedSendEmail,
+            methodNameText: "meeting.consolidatedSendEmail",
+            allowedRoles: [],
+            isPrivate: false,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
 function request_meetings(req, res) {
     let params = {
         POST: {
@@ -748,5 +771,6 @@ module.exports = {
     pubsubRequestMeeting: pubsub_request_meeting,
     pubsubConfirmMeeting: pubsub_confirm_meeting,
     pubsubScanVCard: pubsub_scan_vcard,
-    pubsubShareVCard: pubsub_share_vcard
+    pubsubShareVCard: pubsub_share_vcard,
+    consolidatedSendEmail:consolidated_send_email
 };

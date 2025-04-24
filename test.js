@@ -148,23 +148,25 @@ const user = require("./lib/user");
 // }
 
 async function _handle_request() {
-  const user = require("./lib/user");
+  const meeting = require("./lib/meeting");
 
   let payload ={
     "key": {
-        "instanceId": "OA_UAT",
-        "clientId": "C1742212403583",
-        "eventId": "E1742214690559"
-    },
+          "instanceId": "OA_UAT",
+          "clientId": "C1742212403583",
+          "eventId": "E1742214690559"
+      },
     "data": {
-      "attendeeId":"1324000",
-      "attendeeType":"Attendee",
-      "includeStat":true
+      "RequestorId": "99915239",
+      "InviteeIds": ["34904000"],
+      "Slots": [],
+      "Message": "Let's connect and discuss potential collaboration opportunities.",
+      "Timezone": "Asia/Kolkata"
     }
-};
+  };
 
   try {
-    let res = await user.userInfo(payload);
+    let res = await meeting.requestMeetings(payload);
     console.log("Success:", res);
     //process.exit(0);
   } catch (err) {

@@ -9,7 +9,7 @@ provider:
   region: us-central1
   project: e2monair
   credentials: ./deploy/keys/prd_key.json
-  memorySize: 512
+  memorySize: 1024
   timeout: 60s
 
 plugins:
@@ -32,65 +32,65 @@ functions:
     handler: meetingQnA
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   mysql-connection:
     handler: mysqlConnection
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 60s
   available-attendees:
     handler: availableAttendees
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
     vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
   available-speakers:
     handler: availableSpeakers
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
     vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
   available-sponsors:
     handler: availableSponsors
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
     vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
   available-slots:
     handler: availableSlots
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   user-info:
     handler: userInfo
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
     vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
   meeting-config:
     handler: meetingConfig
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   get-meetings:
     handler: getMeetings
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   meeting-info:
     handler: getMeetingDetail
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   upload-files:
     handler: uploadFiles
@@ -102,46 +102,51 @@ functions:
     handler: meetingAttendees
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   attendee-meetings:
     handler: attendeeMeetings
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   draft-attendees:
     handler: draftAttendees
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   request-meetings:
     handler: requestMeetings
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   confirm-meeting:
     handler: confirmMeeting
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
   accept-meeting:
     handler: acceptMeeting
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
   cancel-meeting:
     handler: cancelMeeting
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
   validate-meeting:
     handler: validateMeeting
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
+  consolidated-send-email:
+    handler: consolidatedSendEmail
+    events:
+      - http: path
+    memorySize: 1024
   ai-confirm-meeting:
     handler: aiConfirmMeeting
     events:
@@ -153,7 +158,7 @@ functions:
       - event:
           eventType: providers/cloud.pubsub/eventTypes/topic.publish
           resource: 'projects/${self:provider.project, ""}/topics/confirm-meeting'
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   pubsub-request-meeting:
     handler: pubsubRequestMeeting
@@ -161,43 +166,43 @@ functions:
       - event:
           eventType: providers/cloud.pubsub/eventTypes/topic.publish
           resource: 'projects/${self:provider.project, ""}/topics/rm-request-meeting'
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   meeting-reminder:
     handler: meetingReminder
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
   scan-vcard:
     handler: scanVCard
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
   scan-rating:
     handler: scanRating
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
   pubsub-scan-vcard:
     handler: pubsubScanVCard
     events:
       - event:
           eventType: providers/cloud.pubsub/eventTypes/topic.publish
           resource: 'projects/${self:provider.project, ""}/topics/ext-scan-vcard'
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
   share-vcard:
     handler: shareVCard
     events:
       - http: path
-    memorySize: 512
+    memorySize: 1024
   pubsub-share-vcard:
     handler: pubsubShareVCard
     events:
       - event:
           eventType: providers/cloud.pubsub/eventTypes/topic.publish
           resource: 'projects/${self:provider.project, ""}/topics/ext-share-vcard'
-    memorySize: 512
+    memorySize: 1024
     timeout: 120s
 
 
