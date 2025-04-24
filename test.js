@@ -148,7 +148,7 @@ const user = require("./lib/user");
 // }
 
 async function _handle_request() {
-  const meeting = require("./lib/meeting");
+  const user = require("./lib/user");
 
   let payload ={
     "key": {
@@ -157,12 +157,14 @@ async function _handle_request() {
         "eventId": "E1742214690559"
     },
     "data": {
-      "UserId":"99934194"
+      "attendeeId":"1324000",
+      "attendeeType":"Attendee",
+      "includeStat":true
     }
 };
 
   try {
-    let res = await meeting.getMeetings(payload);
+    let res = await user.userInfo(payload);
     console.log("Success:", res);
     //process.exit(0);
   } catch (err) {

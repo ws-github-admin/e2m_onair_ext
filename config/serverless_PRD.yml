@@ -121,6 +121,21 @@ functions:
     events:
       - http: path
     memorySize: 512
+  accept-meeting:
+    handler: acceptMeeting
+    events:
+      - http: path
+    memorySize: 512
+  cancel-meeting:
+    handler: cancelMeeting
+    events:
+      - http: path
+    memorySize: 512
+  validate-meeting:
+    handler: validateMeeting
+    events:
+      - http: path
+    memorySize: 512
   ai-confirm-meeting:
     handler: aiConfirmMeeting
     events:

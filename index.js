@@ -76,7 +76,6 @@ function meeting_qna(req, res) {
             return res.status(200).send(err);
         });
 }
-
 function available_attendees(req, res) {
     let params = {
         POST: {
@@ -99,7 +98,6 @@ function available_attendees(req, res) {
             return res.status(200).send(err);
         });
 }
-
 function available_speakers(req, res) {
     let params = {
         POST: {
@@ -122,7 +120,6 @@ function available_speakers(req, res) {
             return res.status(200).send(err);
         });
 }
-
 function available_sponsors(req, res) {
     let params = {
         POST: {
@@ -145,14 +142,13 @@ function available_sponsors(req, res) {
             return res.status(200).send(err);
         });
 }
-
 function user_info(req, res) {
     let params = {
         POST: {
             methodToCall: user.userInfo,
             methodNameText: "user.userInfo",
             allowedRoles: [],
-            isPrivate: true,
+            isPrivate: false,
         },
         PUT: {
             isPrivate: true,
@@ -174,7 +170,6 @@ function user_info(req, res) {
             return res.status(200).send(err);
         });
 }
-
 function upload_files(req, res) {
     let params = {
         POST: {
@@ -197,9 +192,6 @@ function upload_files(req, res) {
             return res.status(200).send(err);
         });
 }
-
-
-
 function draft_attendees(req, res) {
     let payload = {}
     console.log("req.method====", req.method);
@@ -403,13 +395,57 @@ function confirm_meeting(req, res) {
             return res.status(200).send(err);
         });
 }
+function accept_meeting(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.acceptMeeting,
+            methodNameText: "meeting.acceptMeeting",
+            allowedRoles: [],
+            isPrivate: false,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
 function cancel_meeting(req, res) {
     let params = {
         POST: {
             methodToCall: meeting.cancelMeeting,
             methodNameText: "meeting.cancelMeeting",
             allowedRoles: [],
-            isPrivate: true,
+            isPrivate: false,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
+function validate_meeting(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.validateMeeting,
+            methodNameText: "meeting.validateMeeting",
+            allowedRoles: [],
+            isPrivate: false,
         },
     };
     let allowed_methods = Object.keys(params);
@@ -665,7 +701,6 @@ function _handle_request(req, params) {
 module.exports = {
     getMeetings: get_meetings,
     getMeetingDetail: get_meeting_detail,   
-    cancelMeeting: cancel_meeting,
     meetingQnA: meeting_qna,
     mysqlConnection: mysql_connection,
     availableAttendees: available_attendees,
@@ -679,6 +714,9 @@ module.exports = {
     attendeeMeetings: attendee_meetings,
     availableSlots:available_slots,
     confirmMeeting: confirm_meeting,
+    cancelMeeting: cancel_meeting,
+    validateMeeting: validate_meeting,
+    acceptMeeting: accept_meeting,
     aiConfirmMeeting:ai_confirm_meeting,    
     meetingReminder: meeting_reminder,
     scanVCard: scan_vcard,   
