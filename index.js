@@ -307,6 +307,28 @@ function available_slots(req, res) {
             return res.status(200).send(err);
         });
 }
+function meeting_config(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.meetingConfig,
+            methodNameText: "meeting.meetingConfig",
+            allowedRoles: [],
+            isPrivate: false,
+        }
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
 function get_meetings(req, res) {
     let params = {
         POST: {
@@ -699,6 +721,7 @@ function _handle_request(req, params) {
 }
 
 module.exports = {
+    meetingConfig:meeting_config,
     getMeetings: get_meetings,
     getMeetingDetail: get_meeting_detail,   
     meetingQnA: meeting_qna,
