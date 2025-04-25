@@ -630,7 +630,7 @@ function on_sms_received(req, res) {
     }
 
     res.set('Content-Type', 'text/xml');
-    res.type('text/xml').send(twiml);
+    res.status(200).send(twiml);
 }
 
 
