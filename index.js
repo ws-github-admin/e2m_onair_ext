@@ -616,16 +616,16 @@ function share_vcard(req, res) {
             return res.status(200).send(err);
         });
 }
-function on_sms_received(req, res) {
+async function on_sms_received(req, res) {
     let twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
     <Message>We got your message, thank you!</Message>
-</Response>`
+</Response>`;
 
     try {
-        meeting.onSmsReplied(req.body);
+        await meeting.onSmsReplied(req.body);
     } catch (ex) {
-        console.log(ex)
+        console.log(ex);
     }
 
     res.set('Content-Type', 'text/xml');
