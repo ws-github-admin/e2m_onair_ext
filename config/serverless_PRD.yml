@@ -196,6 +196,11 @@ functions:
     events:
       - http: path
     memorySize: 1024
+  on-sms-received:
+    handler: onSmsReceived
+    events:
+      - http: path
+    memorySize: 1024
   pubsub-share-vcard:
     handler: pubsubShareVCard
     events:

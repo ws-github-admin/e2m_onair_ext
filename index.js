@@ -616,6 +616,22 @@ function share_vcard(req, res) {
             return res.status(200).send(err);
         });
 }
+function on_sms_received(req, res) {
+    let twiml = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+    <Message>We got your message, thank you!</Message>
+</Response>`
+
+    try {
+        payload = req.body;
+        console.log(payload);
+    } catch (ex) {
+        console.log(ex)
+    }
+
+    res.set('Content-Type', 'text/xml');
+    res.type('text/xml').send(twiml);
+}
 
 
 async function pubsub_request_meeting(message, context) {
@@ -768,6 +784,7 @@ module.exports = {
     scanVCard: scan_vcard,   
     scanRating: scan_rating,
     shareVCard: share_vcard,
+    onSmsReceived: on_sms_received,
     pubsubRequestMeeting: pubsub_request_meeting,
     pubsubConfirmMeeting: pubsub_confirm_meeting,
     pubsubScanVCard: pubsub_scan_vcard,
