@@ -623,8 +623,7 @@ function on_sms_received(req, res) {
 </Response>`
 
     try {
-        let payload = req.body;
-        console.log(payload);
+        meeting.onSmsReplied(req.body);
     } catch (ex) {
         console.log(ex)
     }
