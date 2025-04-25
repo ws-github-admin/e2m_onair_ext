@@ -623,7 +623,7 @@ function on_sms_received(req, res) {
 </Response>`
 
     try {
-        payload = req.body;
+        let payload = req.body;
         console.log(payload);
     } catch (ex) {
         console.log(ex)
