@@ -8,4 +8,5 @@ config.json
 config/config*.json
 serverless.yml
 deploy/keys/*
+config/config*.json
 creds/*
