@@ -678,6 +678,28 @@ async function pubsub_scan_vcard(message, context) {
     return;
 }
 
+function send_sms_to_attendee(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.sendSMSToAttendee,
+            methodNameText: "meeting.sendSMSToAttendee",
+            allowedRoles: [],
+            isPrivate: true,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
 
 
 /* S U P P O R T I N G  M E T H O D S */
@@ -759,9 +781,9 @@ function _handle_request(req, params) {
 }
 
 module.exports = {
-    meetingConfig:meeting_config,
+    meetingConfig: meeting_config,
     getMeetings: get_meetings,
-    getMeetingDetail: get_meeting_detail,   
+    getMeetingDetail: get_meeting_detail,
     meetingQnA: meeting_qna,
     mysqlConnection: mysql_connection,
     availableAttendees: available_attendees,
@@ -773,14 +795,14 @@ module.exports = {
     requestMeetings: request_meetings,
     meetingAttendees: meeting_attendees,
     attendeeMeetings: attendee_meetings,
-    availableSlots:available_slots,
+    availableSlots: available_slots,
     confirmMeeting: confirm_meeting,
     cancelMeeting: cancel_meeting,
     validateMeeting: validate_meeting,
     acceptMeeting: accept_meeting,
-    aiConfirmMeeting:ai_confirm_meeting,    
+    aiConfirmMeeting: ai_confirm_meeting,
     meetingReminder: meeting_reminder,
-    scanVCard: scan_vcard,   
+    scanVCard: scan_vcard,
     scanRating: scan_rating,
     shareVCard: share_vcard,
     onSmsReceived: on_sms_received,
@@ -788,5 +810,6 @@ module.exports = {
     pubsubConfirmMeeting: pubsub_confirm_meeting,
     pubsubScanVCard: pubsub_scan_vcard,
     pubsubShareVCard: pubsub_share_vcard,
-    consolidatedSendEmail:consolidated_send_email
+    consolidatedSendEmail: consolidated_send_email,
+    sendSMSToAttendee: send_sms_to_attendee,
 };
