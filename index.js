@@ -678,6 +678,29 @@ async function pubsub_scan_vcard(message, context) {
     return;
 }
 
+function send_sms_to_user(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.sendSMSToUser,
+            methodNameText: "meeting.sendSMSToUser",
+            allowedRoles: [],
+            isPrivate: true,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
+
 function send_sms_to_attendee(req, res) {
     let params = {
         POST: {
@@ -700,7 +723,6 @@ function send_sms_to_attendee(req, res) {
             return res.status(200).send(err);
         });
 }
-
 
 /* S U P P O R T I N G  M E T H O D S */
 function _set_cors(req, res, allowed_methods) {
@@ -811,5 +833,6 @@ module.exports = {
     pubsubScanVCard: pubsub_scan_vcard,
     pubsubShareVCard: pubsub_share_vcard,
     consolidatedSendEmail: consolidated_send_email,
+    sendSMSToUser: send_sms_to_user,
     sendSMSToAttendee: send_sms_to_attendee,
 };
