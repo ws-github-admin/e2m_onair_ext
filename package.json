@@ -54,6 +54,7 @@
     "nodemailer-promise": "^2.0.0",
     "npm": "^6.14.10",
     "path": "^0.12.7",
+    "pdfkit": "^0.17.1",
     "puppeteer": "^10.2.0",
     "qs": "^6.10.1",
     "stripe": "^8.148.0",
