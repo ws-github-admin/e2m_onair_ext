@@ -157,16 +157,12 @@ async function _handle_request() {
           "eventId": "E1742214690559"
       },
     "data": {
-      "RequestorId": "99915239",
-      "InviteeIds": ["34904000"],
-      "Slots": [],
-      "Message": "Let's connect and discuss potential collaboration opportunities.",
-      "Timezone": "Asia/Kolkata"
+      "sponsor" : "35048000"
     }
   };
 
   try {
-    let res = await meeting.requestMeetings(payload);
+    let res = await user.getSponsorsMeeting(payload);
     console.log("Success:", res);
     //process.exit(0);
   } catch (err) {

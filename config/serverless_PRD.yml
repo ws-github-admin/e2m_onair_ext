@@ -219,5 +219,8 @@ functions:
     events:
       - http: path
     memorySize: 1024
-
-
+  get-sponsors-meeting:
+    handler: getSponsorsMeeting
+    events:
+      - http: path
+    memorySize: 1024
