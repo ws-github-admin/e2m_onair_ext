@@ -858,5 +858,6 @@ module.exports = {
     consolidatedSendEmail: consolidated_send_email,
     sendSMSToUser: send_sms_to_user,
     sendSMSToAttendee: send_sms_to_attendee,
-    getSponsorsMeeting : get_sponsors_meeting
+    getSponsorsMeeting : get_sponsors_meeting,
+    attendeeList: attendee_list,
 };

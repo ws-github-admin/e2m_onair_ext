@@ -224,3 +224,8 @@ functions:
     events:
       - http: path
     memorySize: 1024
+  get-attendee-list:
+    handler: attendeeList
+    events:
+      - http: path
+    memorySize: 1024
