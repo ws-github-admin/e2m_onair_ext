@@ -178,6 +178,11 @@ functions:
     events:
       - http: path
     memorySize: 1024
+  update-vcard:
+    handler: updateVCard
+    events:
+      - http: path
+    memorySize: 1024
   scan-rating:
     handler: scanRating
     events:
