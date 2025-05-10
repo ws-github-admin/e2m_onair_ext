@@ -747,6 +747,29 @@ function get_sponsors_meeting(req, res) {
         });
 }
 
+function attendee_list(req, res) {
+    let params = {
+        POST: {
+            methodToCall: user.attendeeList,
+            methodNameText: "user.attendeeList",
+            allowedRoles: [],
+            isPrivate: false,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
+
 /* S U P P O R T I N G  M E T H O D S */
 function _set_cors(req, res, allowed_methods) {
     res.set("Access-Control-Allow-Origin", "*");
