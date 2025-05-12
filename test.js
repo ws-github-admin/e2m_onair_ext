@@ -155,10 +155,7 @@ async function _handle_request() {
           "instanceId": "OA_UAT",
           "clientId": "C1742212403583",
           "eventId": "E1742214690559"
-      },
-    "data": {
-      "sponsor" : "35048000"
-    }
+      }
   };
 
   try {
