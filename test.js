@@ -157,12 +157,12 @@ async function _handle_request() {
           "eventId": "E1743163201304"
       } ,
       "data" : {
-        "sponsor" : "34338000"
+        "UserId" : "99934511"
       }
   };
 
   try {
-    let res = await user.getSponsorsMeeting(payload);
+    let res = await meeting.getMeetings(payload);
     console.log("Success:", res);
     //process.exit(0);
   } catch (err) {
