@@ -6,6 +6,7 @@ const user = require("./lib/user");
 const logger = require("./lib/logger");
 const mysql = require("./lib/mysql");
 const validate = require("./lib/validator");
+const supabase = require("./lib/supabase");
 const { ERRCODE } = require('./lib/errcode');
 
 /* M E E T I N G  H A N D L E R S */
@@ -819,8 +820,8 @@ function scanned_dashboard_analysis(req, res) {
 function checkSupabaseConnection(req, res) {
     let params = {
         POST: {
-            methodToCall: user.checkSupabaseConnection,
-            methodNameText: "user.checkSupabaseConnection",
+            methodToCall: supabase.checkSupabaseConnection,
+            methodNameText: "supabase.checkSupabaseConnection",
             allowedRoles: [],
             isPrivate: false,
         },
