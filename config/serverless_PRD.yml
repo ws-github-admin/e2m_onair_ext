@@ -28,6 +28,12 @@ package:
     - e2m-onair-google.code-workspace
 
 functions:
+  check-supabase:
+    handler: checkSupabaseConnection
+    events:
+      - http: path
+    memorySize: 512
+    timeout: 60s
   meeting-qna:
     handler: meetingQnA
     events:
