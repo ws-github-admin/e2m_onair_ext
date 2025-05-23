@@ -234,3 +234,8 @@ functions:
     events:
       - http: path
     memorySize: 1024
+  scanned-dashboard-analysis:
+    handler: scannedDashboardAnalysis
+    events:
+      - http: path
+    memorySize: 1024
