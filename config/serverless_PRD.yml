@@ -235,6 +235,11 @@ functions:
     events:
       - http: path
     memorySize: 1024
+  mark-meeting-attended:
+    handler: markMeetingAttended
+    events:
+      - http: path
+    memorySize: 1024
   get-attendee-list:
     handler: attendeeList
     events:

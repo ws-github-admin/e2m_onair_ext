@@ -748,6 +748,29 @@ function get_sponsors_meeting(req, res) {
         });
 }
 
+function mark_meeting_attended(req, res) {
+    let params = {
+        POST: {
+            methodToCall: meeting.markMeetingAttended,
+            methodNameText: "user.markMeetingAttended",
+            allowedRoles: [],
+            isPrivate: true,
+        },
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
+
 function attendee_list(req, res) {
     let params = {
         POST: {
@@ -953,6 +976,7 @@ module.exports = {
     sendSMSToUser: send_sms_to_user,
     sendSMSToAttendee: send_sms_to_attendee,
     getSponsorsMeeting : get_sponsors_meeting,
+    markMeetingAttended : mark_meeting_attended,
     attendeeList: attendee_list,
     updateVCard: update_vcard ,
     scannedDashboardAnalysis: scanned_dashboard_analysis,
