@@ -171,6 +171,35 @@ function user_info(req, res) {
             return res.status(200).send(err);
         });
 }
+function user_attendance(req, res) {
+    let params = {
+        POST: {
+            methodToCall: user.getAttendance,
+            methodNameText: "user.getAttendance",
+            allowedRoles: [],
+            isPrivate: false,
+        },
+        PUT: {
+            isPrivate: false,
+            methodToCall: user.updateAttendance,
+            methodNameText: "user.updateAttendance",
+            allowedRoles: [],
+        }
+    };
+    let allowed_methods = Object.keys(params);
+    res = _set_cors(req, res, allowed_methods);
+    _handle_request(req, params)
+        .then((result) => {
+            if (result.status == 204) {
+                return res.status(204).send("");
+            }
+            return res.status(200).send(result);
+        })
+        .catch((err) => {
+            return res.status(200).send(err);
+        });
+}
+
 function upload_files(req, res) {
     let params = {
         POST: {
@@ -980,4 +1009,5 @@ module.exports = {
     attendeeList: attendee_list,
     updateVCard: update_vcard ,
     scannedDashboardAnalysis: scanned_dashboard_analysis,
+    userAttendance:user_attendance
 };

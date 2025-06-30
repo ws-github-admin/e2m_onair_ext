@@ -80,6 +80,13 @@ functions:
     memorySize: 1024
     timeout: 120s
     vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
+  user-attendance:
+    handler: userAttendance
+    events:
+      - http: path
+    memorySize: 1024
+    timeout: 120s
+    vpc: projects/e2monair/locations/us-central1/connectors/vpc-connector-prd
   meeting-config:
     handler: meetingConfig
     events:
